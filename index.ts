@@ -131,7 +131,7 @@ app.use((error: CustomError, req: express.Request, res: express.Response, _: Nex
 });
 
 // Server setup
-const server = app.listen(port,'0.0.0.0',() => {
+const server = app.listen(port,() => {
 	console.log(`Server running on http://localhost:${port}/`);
 });
 server.setTimeout(API_TIMEOUT);
