@@ -48,8 +48,8 @@ async function connectMongo() {
 	
 	// await mongoose.connect(`mongodb+srv://${encodedUser}:${encodedPassword}@${DB_HOST}/${ADMIN_DB}`, connectOptions);
 	// await mongoose.connect(`mongodb://${DB_HOST}/${ADMIN_DB}`, connectOptions);
-	//await  mongoose.connect(`mongodb+srv://claircodb:Clairco2024@clairco.zdz7uwg.mongodb.net/clairco`)
-	await mongoose.connect('mongodb+srv://parshantrajput12345:TjaQT4F6nUw4Fnvz@testcluster.zso9133.mongodb.net/?retryWrites=true&w=majority&appName=TestCluster');
+	await  mongoose.connect(`mongodb+srv://claircodb:Clairco2024@clairco.zdz7uwg.mongodb.net/clairco`)
+	//await mongoose.connect('mongodb+srv://parshantrajput12345:TjaQT4F6nUw4Fnvz@testcluster.zso9133.mongodb.net/?retryWrites=true&w=majority&appName=TestCluster');
 }
 connectMongo()
 	.then(() => {
