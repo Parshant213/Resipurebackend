@@ -1,0 +1,104 @@
+paths:
+    /customer/:
+        post:
+            tags:
+                - Customer
+            summary: Creates a new customer
+            produces:
+                - application/json
+            parameters:
+                - in: body
+                  name: Create customer
+                  description: It enables a user to create a customer
+                  required: false
+                  schema:
+                      $ref: '#/definitions/createCustomer'
+            responses:
+                200:
+                    description: Successful operation
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/definitions/createCustomer'
+            security:
+                - bearerAuth: []
+
+    /customer/{customerId}:
+        get:
+            tags:
+                - Customer
+            summary: Get customer details
+            produces:
+                - application/json
+            parameters:
+                - in: path
+                  name: customerId
+                  required: true
+                  description: UUID of the customer to retrieve.
+                  schema:
+                      type: string
+            responses:
+                200:
+                    description: Successful operation
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/definitions/getCustomer'
+                400:
+                    $ref: '#/components/responses/BadRequestError'
+                401:
+                    $ref: '#/components/responses/UnauthorizedError'
+            security:
+                - bearerAuth: []
+definitions:
+    createCustomer:
+        name: 'Customer Data'
+        type: object
+        required: [name]
+        properties:
+            name:
+                type: string
+            gst:
+                type: string
+    getCustomer:
+        name: 'Customer Details'
+        type: object
+        properties:
+            id:
+                type: UUID
+            name:
+                type: string
+            logo:
+                type: string
+            gst:
+                type: string
+    Error:
+        type: object
+        required:
+            - message
+        properties:
+            message:
+                type: string
+                description: 'The cause of the Error.'
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+    responses:
+        UnauthorizedError:
+            description: Access token is missing or invalid
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/definitions/Error'
+        BadRequestError:
+            description: Bad request
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/definitions/Error'
+
+security:
+    - bearerAuth: []

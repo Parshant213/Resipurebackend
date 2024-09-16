@@ -1,0 +1,33 @@
+import express from 'express';
+import customerRouter from './customer';
+import sensorTypeRouter from './sensorType';
+import { router as authRouters } from './customer/user';
+import { objectIdParamCheck } from '../middleware/objectId-middleware';
+import { permissionCheck } from '../middleware/permission-middleware';
+import { router as deviceTypeRouter } from './deviceType';
+import { router as iaqDeviceRouter } from './iaqDevice';
+import { router as zoneRouter } from './zone';
+import { router as energyMeterRouter } from './energyMeter';
+import { router as gatewayRouter} from './gateway';
+import { router as modelsRouter } from './models';
+import { buildingRouter as buildingRouter} from './building';
+import { adminRouter as deviceAdminRouter } from './device';
+import {router as resipurRouter } from './resipure';
+import temperatureLogsRouter from './temperatureLogs';
+const router: express.Router = express.Router();
+
+router.use('/', authRouters);
+router.use('/customers', objectIdParamCheck, customerRouter);
+router.use('/sensor-types', permissionCheck, objectIdParamCheck, sensorTypeRouter);
+router.use('/devices', deviceAdminRouter);
+router.use('/deviceType', deviceTypeRouter);
+router.use('/iaq-devices', objectIdParamCheck, iaqDeviceRouter);
+router.use('/zones', objectIdParamCheck, zoneRouter);
+router.use('/gateways',objectIdParamCheck, gatewayRouter);
+router.use('/models', objectIdParamCheck, modelsRouter);
+router.use('/energy-meters', objectIdParamCheck, energyMeterRouter);
+router.use('/buildings', objectIdParamCheck, buildingRouter);
+router.use('/resipure',resipurRouter);
+router.use('/temperatureLogs', temperatureLogsRouter);
+
+export default router;

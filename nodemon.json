@@ -1,0 +1,6 @@
+{
+	"watch": ["src", "index.ts", ".env"],
+	"ext": ".ts,.yaml",
+	"ignore": [],
+	"exec": "ts-node --project tsconfig.json --files index.ts"
+}
