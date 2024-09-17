@@ -8,10 +8,11 @@ import { updateControls } from "../../handlers/iaqDevice";
 import { permissionCheck, } from '../../middleware/permission-middleware';
 
 const router: Router = Router();
-router.get("/:customerId",resipureCustomerInfo)
+router
   .get("/hourlyData",getDeviceData)
   .get("/dailyData",getDeviceData)
   .get("/weeklyData", getWeeklyDeviceData)
-  .post("/updateControls",updateControls);
+  .post("/updateControls",updateControls)
+  .get("/:customerId",resipureCustomerInfo);
 
 export { router };
