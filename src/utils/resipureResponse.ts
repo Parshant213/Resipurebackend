@@ -23,11 +23,11 @@
   
     // Process the data
     data.forEach((item:any) => {
-      Temp.push({ value: item.TEMP, timestamp: new Date (item.timestamp).toLocaleString()});
-      HUM.push({ value: item.HUM, timestamp: new Date (item.timestamp).toLocaleString()});
-      PM25.push({ value: item.PM25, timestamp: new Date (item.timestamp).toLocaleString() });
-      PM10.push({ value: item.PM10, timestamp: new Date (item.timestamp).toLocaleString()});
-      CO2.push({ value: item.CO2, timestamp: new Date (item.timestamp).toLocaleString() });
+      Temp.push({ value: item.TEMP, timestamp:item.timestamp});
+      HUM.push({ value: item.HUM, timestamp:item.timestamp});
+      PM25.push({ value: item.PM25, timestamp: item.timestamp });
+      PM10.push({ value: item.PM10, timestamp:item.timestamp});
+      CO2.push({ value: item.CO2, timestamp: item.timestamp });
     });
   
     // Return the response

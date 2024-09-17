@@ -27,7 +27,8 @@ export const getDeviceData = async (
       sensorName,
       timeFrameInHours: timeFrame,
     });
-    const result = CustomResponse(sensorData);
+    const modifiedData = CustomResponse(sensorData);
+    const result = [{date:new Date() , data:modifiedData}];
     res.json(result);
   } catch (error) {
     next(error);
