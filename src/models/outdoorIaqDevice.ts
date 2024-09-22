@@ -1,9 +1,8 @@
-import mongoose from 'mongoose';
-import { MODEL_NAME } from '../constants';
-import { transformHook } from '../utils/models';
+import mongoose from "mongoose";
+import { MODEL_NAME } from "../constants";
+import { transformHook } from "../utils/models";
 const { ObjectId } = mongoose.Schema.Types;
-
-const IAQDeviceSchema = new mongoose.Schema(
+const outdoorIaqDeviceSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -35,12 +34,10 @@ const IAQDeviceSchema = new mongoose.Schema(
         },
         calibrationValues: {
             type: Object,
-            required: true,
             default: {}
         },
         limits: {
             type: Object,
-            required: true,
             default: {}
         },
         parameters: {
@@ -48,19 +45,14 @@ const IAQDeviceSchema = new mongoose.Schema(
             required: true,
             default: []
         },
-        outdoorIaqDeviceId :{
-            type:Object,
-            ref:MODEL_NAME.OUTDOOR_IAQ_DEVICE
-        },
         dataUpdatedAt: {
             type: Date,
             default: Date.now
         }
     },
-    { collection: MODEL_NAME.IAQ_DEVICE, id: true, versionKey: false, timestamps: true }
+    { collection: MODEL_NAME.OUTDOOR_IAQ_DEVICE, id: true, versionKey: false, timestamps: true }
 );
 
-IAQDeviceSchema.set('toJSON', transformHook);
-IAQDeviceSchema.set('toObject', transformHook);
-
-export default mongoose.model(MODEL_NAME.IAQ_DEVICE, IAQDeviceSchema);
+outdoorIaqDeviceSchema.set('toJSON', transformHook);
+outdoorIaqDeviceSchema.set('toObject', transformHook);
+export default  mongoose.model(MODEL_NAME.OUTDOOR_IAQ_DEVICE, outdoorIaqDeviceSchema);

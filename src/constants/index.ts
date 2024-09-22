@@ -15,6 +15,7 @@ export const MODEL_NAME = {
   IAQ_RAW_DATA: "IaqRawData",
   OCCUPANCY: "occupancy",
   IAQ_DEVICE: "iaqDevice",
+  OUTDOOR_IAQ_DEVICE : 'outdoorIaqDevice',
   ZONE: "zone",
   ENERGY_METER: "energyMeter",
   GATEWAY: "gateway",

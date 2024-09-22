@@ -237,7 +237,7 @@ export const resipureCustomerSummary = async (customerId: string) => {
     Customer.findById(customerId),
     fetchLatestDataForResipure(customerId),
   ]);
-  const deviceId = deviceData?.iaqList?.[0]?.id;
+  const deviceId = deviceData?.indoorIaqList?.[0]?.id;
   const deviceControls = deviceId
     ? await getResipureDeviceControl(deviceId)
     : null;

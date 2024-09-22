@@ -11,6 +11,7 @@ import deviceType from "./deviceType";
 import IaqRawData from "./iaqRawData";
 import thermopileRawData from "./thermopileRawData";
 import iaqDevice from "./iaqDevice";
+import outdoorIaqDevice from "./outdoorIaqDevice";
 import zone from "./zone";
 import energyMeter from "./energyMeter";
 import indoorDevices from "./indoorDevices";
@@ -56,5 +57,6 @@ export {
     outdoorDevices,
     ahuRawData,
     temperatureLogs,
-    resipureDeviceControl
+    resipureDeviceControl,
+    outdoorIaqDevice
 };

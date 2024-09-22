@@ -1,5 +1,5 @@
 import { IIiaqDevice } from "../../interfaces/IIaqDevice";
-import { iaqDevice, IaqRawData, resipureDeviceControl } from "../../models";
+import { iaqDevice, IaqRawData, outdoorIaqDevice, resipureDeviceControl } from "../../models";
 import APIError from "../../classes/APIError";
 
 export const findIAQDeviceById = async (
@@ -37,12 +37,46 @@ export const deleteIAQDeviceById = async (
 
 export const fetchLatestDataForResipure = async (id: string) => {
   try {
-    const iaqList = await iaqDevice.find({ customerId: id });
-    const latestData = await IaqRawData.find({ MQTTID: iaqList[0].name })
+    const indoorIaqList = await iaqDevice.find({ customerId: id });
+    if (!indoorIaqList.length) {
+      return {
+        indoorIaqList: [],
+        indoorLatestData: null,
+        outdoorIaqList: null,
+        outdoorLatestData: null,
+      };
+    }
+
+    const { name: indoorMQTTID, outdoorIaqDeviceId } = indoorIaqList[0];
+
+    const indoorLatestDataPromise = IaqRawData.find({ MQTTID: indoorMQTTID })
       .sort({ timestamp: -1 })
       .limit(1);
-    return { iaqList, latestData };
-  } catch (error:any) {
+
+    let outdoorIaqList = null;
+    let outdoorLatestDataPromise = null;
+
+    if (outdoorIaqDeviceId) {
+      outdoorIaqList = await outdoorIaqDevice.find({id:outdoorIaqDeviceId});
+      outdoorLatestDataPromise = IaqRawData.find({
+        MQTTID: outdoorIaqList[0]?.name,
+      })
+        .sort({ timestamp: -1 })
+        .limit(1);
+    }
+
+    const [indoorLatestData, outdoorLatestData] = await Promise.all([
+      indoorLatestDataPromise,
+      outdoorLatestDataPromise,
+    ]);
+
+    return {
+      indoorIaqList,
+      indoorLatestData,
+      outdoorIaqList,
+      outdoorLatestData,
+    };
+  } catch (error: any) {
     throw new APIError(error?.message, 500);
   }
 };
